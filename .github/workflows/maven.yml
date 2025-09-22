@@ -26,7 +26,10 @@ jobs:
 
   publish:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 17
@@ -34,7 +37,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
           server-id: github
           server-username: GITHUB_ACTOR
           server-password: ${{ secrets.GITHUB_TOKEN }}
