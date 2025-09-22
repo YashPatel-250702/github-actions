@@ -32,5 +32,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+          server-id: github # must match <id> in pom.xml <distributionManagement>
+          server-username: GITHUB_ACTOR
+          server-password: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish to GitHub Packages
-        run: mvn deploy --settings .github/maven-settings.xml
+        run: mvn deploy
